@@ -1,6 +1,6 @@
-const JSLoad = 1,
-    DocumentContentLoad = 2,
-    WindowLoad = 3;
+const JSLoad = 0,
+    DocumentContentLoad = 1,
+    WindowLoad = 2;
 
 const state = {}
 const flog = (...msg) => console.log(...msg)
@@ -13,7 +13,7 @@ const runnable = {
             case DocumentContentLoad:
                 return new Promise((resolve, reject) => {
                     document.addEventListener("DOMContentLoaded", function (event) {
-                        console.log("DOMContentLoaded")
+                        // console.log("DOMContentLoaded")
                         resolve(1)
                     });
                 });
@@ -21,7 +21,7 @@ const runnable = {
             case WindowLoad:
                 return new Promise((resolve, reject) => {
                     window.addEventListener("load", function (event) {
-                        console.log("WindowLoad")
+                        // console.log("WindowLoad")
                         resolve(1)
                     });
                 });
@@ -66,7 +66,12 @@ const runnable = {
                     params = runnable.handleParam(step.param, returnValue)
                 }
                 let output = await state.avs[sep.split("_")[0]][sep.split("_")[1]](...params)
-                step.next && runnable.exec(step.next, output)
+
+                let hasAllDataField = true;
+                if (step.filter) {
+                    hasAllDataField = runnable.handleFilter(step.filter, output)
+                }
+                hasAllDataField && step.next && runnable.exec(step.next, output)
                 resolve(1)
             }))
         })
@@ -76,6 +81,16 @@ const runnable = {
     },
     findStep: (sep) => {
         return state.graph[sep.split("_")[0]][sep.split("_")[1]]
+    },
+    handleFilter: (filter, output) => {
+        let hasAllData = true;
+        output && filter.split(".").forEach(key => {
+            if (output[key] == null) {
+                hasAllData = false
+            }
+        })
+        !output && (hasAllData = false)
+        return hasAllData
     },
     handleParam: (paramExp, returnValue) => {
         let params = [];
