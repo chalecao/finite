@@ -1,8 +1,8 @@
 {
-  "name": "finite",
+  "name": "fsam",
   "version": "1.0.0",
-  "description": "finite state execution machine",
-  "main": "src/finite.js",
+  "description": "fsam = finite state auto-execution machine",
+  "main": "src/fsam.js",
   "scripts": {
     "build": "rollup -c rollup.config.js"
   },

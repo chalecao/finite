@@ -4,12 +4,12 @@ import uglify from 'rollup-plugin-uglify'
 import { minify } from 'uglify-es';
 
 export default [{
-    input: 'src/finite.js',
+    input: 'src/fsam.js',
     output: {
-        file: 'bin/finite.js',
+        file: 'bin/fsam.js',
         format: 'es'
     },
-    banner: '// finite state runner',
+    banner: '',
     footer: "",
     external: [],
     paths: {
