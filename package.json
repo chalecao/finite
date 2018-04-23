@@ -1,0 +1,20 @@
+{
+  "name": "finite",
+  "version": "1.0.0",
+  "description": "finite state execution machine",
+  "main": "src/finite.js",
+  "scripts": {
+    "build": "rollup -c rollup.config.js"
+  },
+  "author": "chalecao(chh_exe@163.com)",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "rollup": "^0.58.1",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-buble": "^0.19.2",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-jsx": "^1.0.3",
+    "rollup-plugin-uglify": "^3.0.0"
+  }
+}
